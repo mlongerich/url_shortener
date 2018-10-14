@@ -5,6 +5,9 @@ class LinksController < ApplicationController
 
   # GET /links
   def index
+  end
+
+  def links
     @links = Link.all
     json_response(@links)
   end
