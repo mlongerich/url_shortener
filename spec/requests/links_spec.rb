@@ -29,7 +29,7 @@ RSpec.describe 'Link API', type: :request do
       end
 
       it 'creates a short_url' do
-        expect(json['short_url']).to match(/localhost:3000\/\w{6}$/)
+        expect(json['short_url']).to match(%r{localhost:3000/\w{6}$})
       end
 
       it 'returns status code 200' do

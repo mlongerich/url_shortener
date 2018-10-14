@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Link, type: :model do
   let!(:link) { FactoryBot.create(:link) }
-  describe "validations" do
+  describe 'validations' do
     it { should validate_presence_of(:url) }
     it { should validate_presence_of(:short_url) }
     it { should validate_uniqueness_of(:url) }

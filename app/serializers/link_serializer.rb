@@ -7,8 +7,9 @@ class LinkSerializer < ActiveModel::Serializer
     "#{domain}/#{object.short_url}"
   end
 
-  private 
-    def domain
-      Rails.env.production? ? Rails.application.routes.url_helpers.root_url : "localhost:3000"
-    end
+  private
+
+  def domain
+    Rails.env.production? ? Rails.application.routes.url_helpers.root_url : 'localhost:3000'
+  end
 end

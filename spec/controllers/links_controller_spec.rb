@@ -8,7 +8,7 @@ RSpec.describe LinksController, type: :controller do
     let(:url)         { links.first.url }
     let(:vanity_url)  { links.first.short_url }
 
-    before { get :show, params: { id: vanity_url }}
+    before { get :show, params: { id: vanity_url } }
 
     context 'when the record exists' do
       it 'redirects to the link' do
@@ -34,7 +34,7 @@ RSpec.describe LinksController, type: :controller do
   end
 
   describe 'POST /add' do
-    before { post :create, params: { url: "http://www.blacktangent.com" }}
+    before { post :create, params: { url: 'http://www.blacktangent.com' } }
 
     context 'when creating first record' do
       it 'short_link will be set to 000001' do
@@ -44,12 +44,12 @@ RSpec.describe LinksController, type: :controller do
 
     context 'when creating any record after first record' do
       it 'short_url will be set to a 6 character string' do
-        post :create, params: { url: "http://google.com" } 
+        post :create, params: { url: 'http://google.com' }
         expect(Link.last.short_url).to match(/^\w{6}$/)
       end
 
       it 'short_url should not be the same as first_record' do
-        post :create, params: { url: "http://google.com" } 
+        post :create, params: { url: 'http://google.com' }
         expect(Link.last.short_url).to_not eq(Link.first.short_url)
       end
     end
