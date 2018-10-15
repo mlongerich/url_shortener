@@ -53,5 +53,38 @@ RSpec.describe LinksController, type: :controller do
         expect(Link.last.short_url).to_not eq(Link.first.short_url)
       end
     end
+
+    context 'when creating a record with whitespace issuses' do
+      it 'should strip leading whitespace' do
+        post :create, params: { url: ' http://google.com' }
+        expect(Link.last.url).to eq('http://google.com')
+      end
+      it 'should strip trailing whitespace' do
+        post :create, params: { url: 'http://google.com ' }
+        expect(Link.last.url).to eq('http://google.com')
+      end
+      it 'should remove leading %20' do
+        post :create, params: { url: '%20http://google.com' }
+        expect(Link.last.url).to eq('http://google.com')
+      end
+      it 'should removed trailing %20' do
+        post :create, params: { url: 'http://google.com%20' }
+        expect(Link.last.url).to eq('http://google.com')
+      end
+      it 'should keep non-leading and non-trailing %20' do
+        post :create, params: { url: 'http://google.com/this%20should%20work' }
+        expect(Link.last.url).to eq('http://google.com/this%20should%20work')
+      end
+      it 'it should handle combination of all of the above' do
+        post :create, params: { url: ' %20 http://google.com/this%20should%20work %20 %20 %20' }
+        expect(Link.last.url).to eq('http://google.com/this%20should%20work')
+      end
+    end
+    context 'when creating issues with special characters' do
+      it 'it should convert special characters to url safe' do
+        post :create, params: { url: 'http://example.com/?a=\11\15' }
+        expect(Link.last.url).to eq('http://example.com/?a=%5C11%5C15')
+      end
+    end
   end
 end

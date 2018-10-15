@@ -16,7 +16,7 @@ class Link < ApplicationRecord
 
   def valid_url
     return if url.nil?
-
-    errors.add(:url, "is invalid. Did you include 'http://?'") if URI.parse(url).host.nil?
+    return errors.add(:url, "has invalid characters.") unless URI.parse(url)
+    return errors.add(:url, "is invalid. Did you include 'http://?'") if URI.parse(url).host.nil?
   end
 end
