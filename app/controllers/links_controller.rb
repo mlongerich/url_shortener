@@ -12,7 +12,7 @@ class LinksController < ApplicationController
     json_response(@links)
   end
 
-  # POST /links
+  # POST /add
   def create
     @link = Link.find_by(url: link_params[:url]) || Link.create!(url: link_params[:url], short_url: generate_short_url)
     json_response(@link)
