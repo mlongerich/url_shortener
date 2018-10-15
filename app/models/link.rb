@@ -4,8 +4,9 @@ class Link < ApplicationRecord
   require 'uri'
 
   validates_presence_of :url, :short_url
-  validates_uniqueness_of :url, :short_url
+  validates_uniqueness_of :url
 
+  validates :short_url, uniqueness: { case_sensitive: false }
   validates :short_url, format: { with: /\w{6}/ }
   validates :short_url, length: { is: 6 }
 
