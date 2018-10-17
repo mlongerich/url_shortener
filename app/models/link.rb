@@ -12,11 +12,28 @@ class Link < ApplicationRecord
 
   validate :valid_url
 
+  # prepends 0's, turns id into base36 digit, returns 6 digit string
+  def self.generate_short_url
+    return '000001' if Link.last.nil?
+
+    ('00000' + (Link.last.id + 1).to_s(36))[-6, 6]
+  end
+
+  def self.clean_url(url)
+    URI.escape(no_whitespace(url)) unless url.nil? 
+  end
+
   private
 
   def valid_url
     return if url.nil?
-    return errors.add(:url, "has invalid characters.") unless URI.parse(url)
-    return errors.add(:url, "is invalid. Did you include 'http://?'") if URI.parse(url).host.nil?
+    errors.add(:url, "is invalid. Did you include 'http://'?") if URI.parse(url).host.nil? && url.present?
+  end
+
+  # replaces all %20 with spaces, removes all leading and trailing spaces
+  # this allows for 'http://random_blog.com/this%20is%20my%20blog'
+  # while correcting for 'http://random_site.com %20 %20 %20' to 'http://random_site.com'
+  def self.no_whitespace(url)
+    url.html_safe.gsub("%20", ' ').strip
   end
 end

@@ -59,5 +59,5 @@ In your terminal run the following
 3. `rake db:setup`
 4. `yarn install`
 5. `rails s`
-6. (optional) In a second terminal navigate to url_shortener directory and run `bin/webpack-dev-server`. This allows live-reload of files as you edit your assets while the server is running.
+6. In a second terminal navigate to url_shortener directory and run `bin/webpack-dev-server`. This allows live-reload of files as you edit your assets while the server is running.
 7. Open localhost:3000 in your favorite browser.
