@@ -1,11 +1,9 @@
 import React from 'react'
 
 const Success = props => (
-  <div>
-    { props.short_url
-      ? <div className="success notification is-info">Your short url is: {props.short_url} </div>
-      : "" 
-    }
+  <div className={ props.short_url && "success notification is-info has-text-centered" }>
+    <p>{ props.short_url && "Your short url is:" }</p>
+    <p>{ props.short_url }</p>
   </div>
 )
 

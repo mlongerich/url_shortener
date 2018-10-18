@@ -6,9 +6,15 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {data: ""}
+    this.state = {data: "", url: ""}
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
+  handleChange(event) {
+    this.setState({ url: event.target.value })
+  }
+  
   handleSubmit(event) {
     event.preventDefault();
     const that = this
@@ -35,12 +41,21 @@ class Form extends React.Component {
           <div className="field">
             <label className="label" htmlFor="url">Enter URL to be shortened</label>
             <div className="control">
-              <input id="url" name="url" className="input" type="text" placeholder="http://example.com" required/>
+              <input 
+                id="url" 
+                name="url" 
+                className="input" 
+                type="text" 
+                placeholder="http://example.com" 
+                required 
+                value={this.state.url}
+                onChange={this.handleChange}
+              />
             </div>
           </div>
           <div className="field">
             <div className="control">
-              <button className="button is-link is-success">Submit</button>
+              <button className="button is-link is-success" disabled={!this.state.url}>Submit</button>
             </div>
           </div>
         </form>

@@ -2,10 +2,10 @@
 
 class LinksController < ApplicationController
   before_action :set_link, only: %i[show destroy]
+  skip_before_action :verify_authenticity_token, only: [:create]
 
   # GET /links
-  def index
-  end
+  def index; end
 
   def links
     @links = Link.all
@@ -17,6 +17,7 @@ class LinksController < ApplicationController
     @url = Link.clean_url(link_params[:url])
 
     @link = Link.find_by(url: @url) || Link.create!(url: @url, short_url: Link.generate_short_url)
+
     json_response(@link)
   end
 

@@ -1,12 +1,7 @@
 import React from 'react'
 
 const Error = props => (
-  <div>
-    { props.error
-      ? <div className="error notification is-danger"> {props.error} </div>
-      : ""
-    }
-  </div>
+  <div className={ props.error && "error notification is-danger" }> {props.error} </div>
 )
 
 export default Error
