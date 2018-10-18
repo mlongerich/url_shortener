@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Header from '../components/Header'
 import Form from '../components/Form'
 
-const App = props => (
+const App = (props) => (
   <div>
     <Header />
     <Form />
@@ -16,3 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(document.createElement('div')),
   )
 })
+
+export default App
